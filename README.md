@@ -1,5 +1,9 @@
 # openwrt-utils
 
+<p align="center">
+  <img alt="SiEra" src="splash.jpg" width="400"/>
+</p>
+
 ## Requirements :
 
 * OpenWrt \>= 15.01
