@@ -27,11 +27,11 @@ check_for_dependencies()
 		opkg update > /dev/null 2>&1
 		opkg install libustream-openssl ca-bundle ca-certificates > /dev/null 2>&1
 		opkg install wget > /dev/null 2>&1
-        opkg install bash > /dev/null 2>&1
 	fi
+	opkg install bash > /dev/null 2>&1
 }
 
-update_ps1() 
+update_ps1()
 {
     echo "Updating PS1"
     logger "installer[$$] : updating PS1"
@@ -40,31 +40,33 @@ update_ps1()
     sed -e 's/\(^.*${PS1LINE}.*$\)/${NEWPS1}\1/' /etc/profile
 }
 
-install_neofetch() 
+install_neofetch()
 {
     echo "Downloading neofetch"
     logger "installer[$$] : Downloading neofetch"
-    wget -O /bin/neofetch "https://raw.githubusercontent.com/dylanaraps/neofetch/master/neofetch" 
+    wget -O /bin/neofetch "https://raw.githubusercontent.com/dylanaraps/neofetch/master/neofetch"
     chmod +x /bin/neofetch
-    
+
     echo "setting up neofetch..."
     sed -i 's/\[ -f \/etc\/banner \] && cat \/etc\/banner/#&/' /etc/profile
     sed -i 's/\[ -n "$FAILSAFE" \] && cat \/etc\/banner.failsafe/& || \/bin\/neofetch/' /etc/profile
 }
 
-install_add_blocker() 
+install_add_blocker()
 {
     echo "Downloading adblocker"
     logger "installer[$$] : Downloading adblocker"
-    wget -O /bin/ad_block ""
+    wget -O /bin/ad_block "https://raw.githubusercontent.com/raymas/openwrt-utils/master/ad_block.sh"
     chmod +x /bin/ad_block
-    
+
     /bin/ad_block -f
+    echo "Updating rc.local"
+    sed -i -e '$i \/bin/ad_block &\n' /etc/rc.local
 }
 
 
 
-case "$1" in 
+case "$1" in
 	"-i")
         check_for_dependencies
         update_ps1
