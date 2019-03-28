@@ -13,15 +13,15 @@
 
 Access to your router via ssh, and download the script.<br><br>
 **You may need to update wget for ssl support** :
-```
-# opkg update
-# opkg install libustream-openssl ca-bundle ca-certificates
-# opkg install wget --force-reinstall
+```bash
+opkg update
+opkg install libustream-openssl ca-bundle ca-certificates
+opkg install wget --force-reinstall
 ```
 
 Install :
-```
-sh -c "$(wget "https://raw.githubusercontent.com/raymas/openwrt-utils/master/install.sh" -O -)"
+```bash
+wget "https://raw.githubusercontent.com/raymas/openwrt-utils/master/install.sh" && sh install.sh && rm install.sh
 ```
 
 ## Contributing
